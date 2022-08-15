@@ -65,17 +65,19 @@ class Game:
         _row, _col = self.__zero_pos
 
         if self.__check_move((row, col)) is True:
-            _tmp = self.board[row][col]
-            self.board[row][col] = self.board[_row][_col]
-            self.board[_row][_col] = _tmp
+            self.board[row][col], self.board[_row][_col] = self.board[_row][_col], self.board[row][col]
             self.__zero_pos = (row, col)
 
     def main_loop(self):
         self.__start()
+        lt = ['A', 'B', 'C', 'D']
+        nb = [0, 1, 2, 3]
+        letter = lt[randint(0, len(lt)-1)]
+        number = nb[randint(0, len(nb)-1)]
         while self.__check_board() is False:
             system('clear')
             self.show_board()
-            print('ex.: C3')
+            print(f'ex.: {letter}{number}')
             direction = input('>> ')
             self.move(direction)
         print('Congratulations you won!')
