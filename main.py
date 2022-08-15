@@ -78,6 +78,7 @@ class Game:
             print('ex.: C3')
             direction = input('>> ')
             self.move(direction)
+        print('Congratulations you won!')
 
 
 g = Game()
