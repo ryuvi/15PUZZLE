@@ -4,14 +4,18 @@ from random import randint
 from sys import stdout
 from os import system
 from tabulate import tabulate
+from colorama import init, Fore
+
+init()
 
 
 class Game:
 
     __zero_pos = (3, 3)
+    board = [[0 for a in range(4)] for b in range(4)]
 
     def __init__(self):
-        self.board = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+        self.__start()
 
     def __check_board(self):
         if self.board == [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 0]]:
@@ -30,7 +34,7 @@ class Game:
                     n = numbers[0]
                     numbers.remove(n)
                 elif len(numbers) == 0:
-                    n = 0
+                    n = f'{Fore.GREEN}0{Fore.RESET}'
 
                 self.board[row_idx][column_idx] = n
 
@@ -45,7 +49,7 @@ class Game:
         pos_row, pos_col = pos
 
         if (zero_pos_col == pos_col) or (zero_pos_row == pos_row):
-            if (zero_pos_col > pos_col or zero_pos_col < pos_col) or (zero_pos_row > pos_row or zero_pos_row > pos_row):
+            if (zero_pos_col > pos_col) or (zero_pos_col < pos_col) or (zero_pos_row > pos_row) or (zero_pos_row < pos_row):
                 return True
 
     def move(self, direction):
@@ -69,7 +73,6 @@ class Game:
             self.__zero_pos = (row, col)
 
     def main_loop(self):
-        self.__start()
         lt = ['A', 'B', 'C', 'D']
         nb = [0, 1, 2, 3]
         letter = lt[randint(0, len(lt)-1)]
